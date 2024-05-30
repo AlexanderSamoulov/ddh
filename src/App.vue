@@ -2,13 +2,13 @@
 import { ref, watchEffect } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useRoute } from 'vue-router'
-import time from './hooks/Time'
+import {getTime} from './hooks/Time'
 const route = useRoute()
 const sectionName=ref<null|string>(null)
-const setTime=ref(time())
-// переменной со временем
+const setTime=ref(getTime())
+
 setInterval(()=>{
-  setTime.value=time()
+  setTime.value=getTime()
 }, 30000,)
 
 watchEffect(() => {
@@ -26,7 +26,7 @@ watchEffect(() => {
     <time class="header__time">{{ setTime }}</time>
   </div>
   </header>
-  <RouterView />
+  <RouterView :time="setTime" />
   </main>
 </template>
 
